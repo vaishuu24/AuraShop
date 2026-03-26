@@ -1,17 +1,17 @@
 # VEXO - Futuristic E-Commerce Implementation Todo
 
 ## Phase 1: Foundation & Architecture Setup (The Skeleton)
-- [ ] Initialize Next.js 15+ App Router codebase with TypeScript (Strict Mode).
-- [ ] Install and configure Tailwind CSS & Shadcn UI primitives.
-- [ ] Set up state management: TanStack Query v5 (server) + Zustand (client).
-- [ ] Install animation libraries: `framer-motion`, `gsap`, `@react-three/fiber`, `@react-three/drei`.
-- [ ] Configure ESLint (Airbnb), Prettier, and Husky for code quality.
+- [x] Initialize Next.js 15+ App Router codebase with TypeScript (Strict Mode).
+- [x] Install and configure Tailwind CSS & Shadcn UI primitives.
+- [x] Set up state management: TanStack Query v5 (server) + Zustand (client).
+- [x] Install animation libraries: `framer-motion`, `gsap`, `@react-three/fiber`, `@react-three/drei`.
+- [x] Configure ESLint (Airbnb), Prettier, and Husky for code quality.
 
 ## Phase 2: Core UI/UX & Global Motion (The "Soul" - Do This First)
-- [ ] Define global design tokens in Tailwind config (colors, futuristic typography, gradients).
-- [ ] Implement the View Transitions API for seamless "morphing" between routes.
-- [ ] Build the global Layout with a responsive Mega Menu (using Framer Motion for enter/exit animations).
-- [ ] Create a persistent, animated cart sidebar (Zustand client state).
+- [x] Define global design tokens in Tailwind config (colors, futuristic typography, gradients).
+- [x] Implement the View Transitions API for seamless "morphing" between routes.
+- [x] Build the global Layout with a responsive Mega Menu (using Framer Motion for enter/exit animations).
+- [x] Create a persistent, animated cart sidebar (Zustand client state).
 
 ## Phase 3: High-Fidelity Components (The Futuristic Vibe)
 - [ ] Build the Landing Page **Hero Section** with GSAP scroll-triggered timelines and text reveals.
