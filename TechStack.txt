@@ -1,0 +1,59 @@
+================================================================================
+PROJECT: AURA-SHOP (High-Performance Animated E-Commerce)
+TECH STACK SPECIFICATION - VERSION 1.0 (2026)
+================================================================================
+
+1. FRONTEND CORE
+--------------------------------------------------------------------------------
+Framework:     Next.js 15+ (App Router)
+               - Utilizing Server Actions for data mutations.
+               - Partial Prerendering (PPR) for instant product page loads.
+Language:      TypeScript 5+ (Strict Mode)
+Styling:       Tailwind CSS (Utility-first) + Shadcn UI (Component Primitives)
+State Mgmt:    TanStack Query v5 (Server State) + Zustand (Client State)
+
+2. THE "SOUL" (ANIMATIONS & MOTION)
+--------------------------------------------------------------------------------
+Page Trans:    Browser Native View Transitions API
+               - Handles seamless "morphing" between routes.
+Component FX:  Framer Motion 12+
+               - Physics-based spring animations for UI elements.
+Complex FX:    GSAP (GreenSock Animation Platform)
+               - Scroll-triggered timelines for high-end landing pages.
+Interactivity: Rive
+               - State-machine driven vector animations for icons/buttons.
+3.D Showcase:  React Three Fiber (R3F) + Three.js
+               - WebGL-based product configurations for footwear/accessories.
+
+3. BACKEND & DATA PERSISTENCE
+--------------------------------------------------------------------------------
+Database:      PostgreSQL (Hosted on Supabase or Neon)
+               - Relational integrity for orders and inventory.
+ORM:           Prisma or Drizzle ORM
+               - Type-safe database queries.
+Caching:       Redis (Upstash)
+               - Global edge-caching for product catalogs and session tokens.
+
+4. INFRASTRUCTURE & EXTERNAL SERVICES
+--------------------------------------------------------------------------------
+Auth:          Auth.js (NextAuth)
+               - OAuth 2.0 (Google, GitHub) + Magic Links.
+Payments:      Stripe (Elements & Webhooks)
+               - PCI-compliant transaction handling.
+Media:         Cloudinary
+               - AI-optimized image delivery and auto-transformation.
+Search:        Algolia
+               - Millisecond-latency "Search-as-you-type" functionality.
+
+5. DEVELOPMENT STANDARDS
+--------------------------------------------------------------------------------
+Linting:       ESLint (Airbnb Config)
+Formatting:    Prettier
+Testing:       Playwright (E2E for Checkout Flow) + Vitest (Unit Logic)
+CI/CD:         Vercel (Edge Runtime Deployment)
+
+================================================================================
+NOTES:
+- All animations must respect 'prefers-reduced-motion'.
+- Performance target: LCP < 2.0s | Lighthouse Performance > 95.
+================================================================================

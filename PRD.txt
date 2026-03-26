@@ -1,0 +1,75 @@
+
+# Product Requirements Document (PRD): Project "Aura-Shop"
+
+**Status:** Draft | **Version:** 1.0 | **Author:** Senior Web Developer
+
+## 1. Executive Summary
+The goal is to build a high-performance, responsive e-commerce platform that allows users to browse products across multiple categories (Men, Women, Kids, etc.) and complete purchases through a secure checkout and payment gateway.
+
+## 2. Target Audience
+* **End-Users:** Fashion-conscious shoppers looking for a seamless mobile and desktop experience.
+* **Admins:** Store managers who need to update inventory, prices, and view order history.
+
+## 3. Functional Requirements
+
+### 3.1 Product Discovery & Navigation
+The site must have a hierarchical structure to prevent "choice paralysis."
+
+| Feature | Description | Priority |
+| :--- | :--- | :--- |
+| **Mega Menu** | Hover-based navigation for Men, Women, Kids, Footwear, etc. | P0 |
+| **Smart Filters** | Filter by size, color, price range, and material. | P0 |
+| **Search Engine** | Real-time search with auto-suggestions and typo tolerance. | P1 |
+| **Product Detail Page (PDP)** | High-res image gallery, size guides, and "similar items" section. | P0 |
+
+### 3.2 User Management & Personalization
+* **Guest Checkout:** Allow users to buy without creating an account (crucial for conversion).
+* **User Profiles:** Order history, saved addresses, and "Dii's" wishlist (or general favorites).
+* **Auth:** Social logins (Google/GitHub) and traditional Email/Password with MFA.
+
+### 3.3 The "Core" Logic (Cart & Checkout)
+* **Persistent Cart:** Cart contents must stay saved even if the user refreshes or switches devices (Server-side sync).
+* **Dynamic Shipping:** Calculate shipping costs based on the user's location.
+* **Tax Calculation:** Automatically apply taxes based on the destination address.
+
+### 3.4 Payment Gateway Integration
+* **Standard Flow:** Integration with **Stripe** or **Razorpay**.
+* **Security:** Support for 3D Secure (3DS) authentication.
+* **Refund Logic:** Automated refund triggers from the Admin panel to the payment API.
+
+---
+
+## 4. User Stories
+
+1.  **As a Shopper**, I want to filter for "Cotton Shirts" under the "Men" category so that I don't have to scroll through irrelevant items.
+2.  **As a Shopper**, I want to see a "Low Stock" badge on a pair of shoes so that I know I need to hurry to buy them.
+3.  **As a Developer**, I want the payment webhook to trigger an email confirmation only *after* the payment status is `succeeded`.
+
+---
+
+## 5. Non-Functional Requirements (The "Senior Dev" Standards)
+
+* **Performance:** LCP (Largest Contentful Paint) should be $< 2.5s$ to ensure low bounce rates.
+* **Scalability:** The backend should handle a $5x$ traffic spike during "Flash Sales."
+* **Accessibility (A11y):** Full compliance with WCAG 2.1 standards (screen readers, keyboard navigation).
+* **SEO:** Server-side rendering (SSR) for all product pages to ensure Google indexability.
+
+---
+
+## 6. High-Level Technical Architecture
+
+> **Note:** We are following the architecture discussed previously (Next.js + PostgreSQL/MongoDB).
+
+* **Frontend:** React (Next.js) + Tailwind CSS.
+* **Backend:** Node.js (Express) or Next.js API Routes.
+* **Caching:** Redis for frequently accessed product data and session storage.
+* **Image Management:** Cloudinary or AWS S3 with automatic image optimization/resizing.
+
+---
+
+## 7. Success Metrics (KPIs)
+* **Conversion Rate:** Percentage of visitors who complete a purchase.
+* **Cart Abandonment Rate:** We aim to keep this below **65%**.
+* **Average Order Value (AOV):** Tracked to optimize "Similar Products" cross-selling.
+
+---
