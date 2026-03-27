@@ -14,16 +14,16 @@
 - [x] Create a persistent, animated cart sidebar (Zustand client state).
 
 ## Phase 3: High-Fidelity Components (The Futuristic Vibe)
-- [ ] Build the Landing Page **Hero Section** with GSAP scroll-triggered timelines and text reveals.
-- [ ] Implement a **React Three Fiber (R3F)** 3D product showcase (e.g., interactive 3D shoe/accessory).
-- [ ] Integrate **Rive** animations for micro-interactions (hovering on buttons, adding to cart, favoriting).
-- [ ] Implement the Product Detail Page (PDP) layout with morphing images and smooth layout shifts.
+- [x] Build the Landing Page **Hero Section** with GSAP scroll-triggered timelines and text reveals.
+- [x] Implement a **React Three Fiber (R3F)** 3D product showcase (e.g., interactive 3D shoe/accessory).
+- [x] Integrate **Rive** animations for micro-interactions (hovering on buttons, adding to cart, favoriting).
+- [x] Implement the Product Detail Page (PDP) layout with morphing images and smooth layout shifts.
 
 ## Phase 4: E-Commerce Logic & Database Integration
-- [ ] Provision PostgreSQL database (Supabase/Neon) and set up the ORM schema (Prisma/Drizzle).
-- [ ] Implement authentication (Auth.js) supporting: Google, GitHub, and Magic Links.
-- [ ] Build the dynamic product catalog fetching from the database (Enable Next.js Partial Prerendering - PPR).
-- [ ] Connect **Algolia** for millisecond-latency, type-ahead real-time search and smart filters.
+- [x] Provision PostgreSQL database (Supabase/Neon) and set up the ORM schema (Prisma/Drizzle).
+- [x] Implement authentication (Auth.js) supporting: Google, GitHub, and Magic Links.
+- [x] Build the dynamic product catalog fetching from the database (Enable Next.js Partial Prerendering - PPR).
+- [x] Connect **Algolia** for millisecond-latency, type-ahead real-time search and smart filters.
 
 ## Phase 5: Cart, Checkout, & Payment Integration
 - [ ] Wire up Cart logic (persist unauthenticated carts to **Redis/Upstash**, authenticated carts to DB).
