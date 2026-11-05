@@ -3,15 +3,24 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getAllProductSlugs, getProductBySlug } from '@/lib/products';
 import { PDPClient } from './PDPClient';
+import { SEED_PRODUCTS } from '../../../../prisma/seed-data';
+
+// ── Static product data for build-time route generation ─────────────────
+// Reuses the canonical seed data (prisma/seed-data.ts) so generateStaticParams
+// never queries PostgreSQL. Only products with stock > 0 are statically
+// generated; out-of-stock products render at request time.
+const PRODUCT_SLUGS_WITH_STOCK = SEED_PRODUCTS
+  .filter((p) => p.variants.some((v) => v.stock > 0))
+  .map((p) => p.slug);
+
+const SEED_PRODUCT_BY_SLUG = new Map(
+  SEED_PRODUCTS.map((p) => [p.slug, p])
+);
 
 // ── Static params for build-time generation ───────────────────────────
 export async function generateStaticParams() {
-  // Without DATABASE_URL/DIRECT_URL, static route generation cannot access
-  // the database. Return an empty set so the page renders at request time
-  // instead of build time. When credentials are available, all product
-  // routes are statically generated as before.
   if (!process.env.DATABASE_URL && !process.env.DIRECT_URL) {
-    return [];
+    return PRODUCT_SLUGS_WITH_STOCK.map((slug) => ({ id: slug }));
   }
   const slugs = await getAllProductSlugs();
   return slugs.map((slug) => ({ id: slug }));
@@ -24,8 +33,38 @@ export async function generateMetadata({
   params: Promise<{ id: string }>;
 }): Promise<Metadata> {
   const { id } = await params;
-  const product = await getProductBySlug(id);
-  if (!product) return { title: 'Not Found | VEXO' };
+
+  // Try database first; fall back to seed data when the DB is unavailable
+  // (e.g. builds without DATABASE_URL/DIRECT_URL).
+  let product: Awaited<ReturnType<typeof getProductBySlug>> | null = null;
+  if (process.env.DATABASE_URL || process.env.DIRECT_URL) {
+    try {
+      product = await getProductBySlug(id);
+    } catch {
+      // Database unreachable — fall through to seed data below.
+    }
+  }
+
+  if (!product) {
+    const seed = SEED_PRODUCT_BY_SLUG.get(id);
+    if (!seed) {
+      return { title: 'Not Found | VEXO' };
+    }
+    return {
+      title: `${seed.title} — ${seed.subtitle} | VEXO`,
+      description: seed.description,
+      alternates: {
+        canonical: `/product/${seed.slug}`,
+      },
+      openGraph: {
+        title: seed.title,
+        description: seed.subtitle,
+        url: `/product/${seed.slug}`,
+        images: seed.images[0]?.startsWith('/') ? [seed.images[0]] : undefined,
+      },
+    };
+  }
+
   return {
     title: `${product.title} — ${product.subtitle} | VEXO`,
     description: product.description,

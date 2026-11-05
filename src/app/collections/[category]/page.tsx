@@ -4,14 +4,16 @@ import { connection } from 'next/server';
 import type { Metadata } from 'next';
 import { CatalogueContent, CatalogueSkeleton } from '@/components/collections/CatalogueContent';
 import { getCategories } from '@/lib/products';
+import { SEED_PRODUCTS } from '../../../../prisma/seed-data';
+
+// ── Static categories for build-time route generation ───────────────────
+// Reuses the canonical seed data (prisma/seed-data.ts) so generateStaticParams
+// never queries PostgreSQL. Distinct category names from the seed catalogue.
+const SEED_CATEGORIES = [...new Set(SEED_PRODUCTS.map((p) => p.category))];
 
 export async function generateStaticParams() {
-  // Without DATABASE_URL/DIRECT_URL, static route generation cannot access
-  // the database. Return an empty set so the page renders at request time
-  // instead of build time. When credentials are available, all category
-  // routes are statically generated as before.
   if (!process.env.DATABASE_URL && !process.env.DIRECT_URL) {
-    return [];
+    return SEED_CATEGORIES.map((category) => ({ category }));
   }
   const categories = await getCategories();
   return categories.map((category) => ({ category }));
